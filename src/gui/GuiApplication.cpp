@@ -147,7 +147,7 @@ GuiApplication::GuiApplication()
 	m_songEditor = new SongEditorWindow(Engine::getSong());
 	connect(m_songEditor, SIGNAL(destroyed(QObject*)), this, SLOT(childDestroyed(QObject*)));
 
-	displayInitProgress(tr("Preparing mixer"));
+	displayInitProgress(tr("Preparing mixer!"));
 	m_mixerView = new MixerView;
 	connect(m_mixerView, SIGNAL(destroyed(QObject*)), this, SLOT(childDestroyed(QObject*)));
 
