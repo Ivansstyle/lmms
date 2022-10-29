@@ -29,7 +29,7 @@
 
 #include "lmms_export.h"
 #include "lmmsconfig.h"
-
+//#include "NodeEditor.h" // Because of compiler complaint included here
 class QLabel;
 
 namespace lmms::gui
@@ -44,7 +44,7 @@ class PatternEditorWindow;
 class PianoRollWindow;
 class ProjectNotes;
 class SongEditorWindow;
-class NodeEditorWindow;
+class NodeEditor; // compiler complains about it! see #include "NodeEditor.h"
 
 class LMMS_EXPORT GuiApplication : public QObject
 {
@@ -68,7 +68,7 @@ public:
 	AutomationEditorWindow* automationEditor() { return m_automationEditor; }
 	ControllerRackView* getControllerRackView() { return m_controllerRackView; }
 	// Adding nodeEditor window
-	NodeEditorWindow* nodeEditor() { return m_nodeEditor;}
+	NodeEditor* nodeEditor() { return m_nodeEditor;}
 
 public slots:
 	void displayInitProgress(const QString &msg);
@@ -90,11 +90,11 @@ private:
 	ControllerRackView* m_controllerRackView;
 
 	// Adding note editor view
-	NodeEditorWindow* m_nodeEditor;
+	NodeEditor* m_nodeEditor;
 	QLabel* m_loadingProgressLabel;
 };
 
-// Short-hand function
+// Shorthand function
 LMMS_EXPORT GuiApplication* getGUI();
 
 } // namespace lmms::gui

@@ -39,6 +39,7 @@
 #include "PianoRoll.h"
 #include "ProjectNotes.h"
 #include "SongEditor.h"
+#include "NodeEditor.h"
 
 #include <QApplication>
 #include <QDir>
@@ -176,7 +177,8 @@ GuiApplication::GuiApplication()
 	connect(m_automationEditor, SIGNAL(destroyed(QObject*)), this, SLOT(childDestroyed(QObject*)));
 
 	displayInitProgress(tr("Preparing Node editor"));
-	m_nodeEditor = nullptr;
+	m_nodeEditor = new NodeEditor;
+	connect(m_nodeEditor, SIGNAL(destroyed(QObject *)), this, SLOT(childDestroyed(QObject *)));
 
 
 	splashScreen.finish(m_mainWindow);

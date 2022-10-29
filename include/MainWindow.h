@@ -166,45 +166,48 @@ public slots:
 	void toggleMixerWin();
 	void togglePianoRollWin();
 	void toggleControllerRack();
+	// Adding node editor
+	void toggleNodeEditorWin();
+
 	void toggleFullscreen();
 
 	void updatePlayPauseIcons();
-
 	void updateUndoRedoButtons();
 	void undo();
+
 	void redo();
 
 	void autoSave();
-
 private slots:
-	void onExportProjectMidi();
 
+	void onExportProjectMidi();
 protected:
 	void closeEvent( QCloseEvent * _ce ) override;
 	void focusOutEvent( QFocusEvent * _fe ) override;
 	void keyPressEvent( QKeyEvent * _ke ) override;
 	void keyReleaseEvent( QKeyEvent * _ke ) override;
+
+
 	void timerEvent( QTimerEvent * _ev ) override;
-
-
 private:
 	MainWindow();
 	MainWindow( const MainWindow & );
+
 	~MainWindow() override;
 
 	void finalize();
-
 	void toggleWindow( QWidget *window, bool forceShow = false );
-	void refocus();
 
+	void refocus();
 	void exportProject(bool multiExport = false);
 	void handleSaveResult(QString const & filename, bool songSavedSuccessfully);
 	bool guiSaveProject();
+
 	bool guiSaveProjectAs( const QString & filename );
 
 	QMdiArea * m_workspace;
-
 	QWidget * m_toolBar;
+
 	QGridLayout * m_toolBarLayout;
 
 	struct keyModifiers
@@ -219,14 +222,14 @@ private:
 		bool m_shift;
 		bool m_alt;
 	} m_keyMods;
-
 	QMenu * m_toolsMenu;
 	QAction * m_undoAction;
 	QAction * m_redoAction;
-	QList<PluginView *> m_tools;
 
+	QList<PluginView *> m_tools;
 	QBasicTimer m_updateTimer;
 	QTimer m_autoSaveTimer;
+
 	int m_autoSaveInterval;
 
 	friend class GuiApplication;
@@ -236,9 +239,8 @@ private:
 	ToolButton * m_metronomeToggle;
 
 	SessionState m_session;
-	
-	bool maximized;
 
+	bool maximized;
 private slots:
 	void browseHelp();
 	void showTool( QAction * _idx );
@@ -250,12 +252,12 @@ private slots:
 	void onImportProject();
 	void onSongStopped();
 	void onSongModified();
-	void onProjectFileNameChanged();
 
+	void onProjectFileNameChanged();
 signals:
 	void periodicUpdate();
-	void initProgress(const QString &msg);
 
+	void initProgress(const QString &msg);
 } ;
 
 

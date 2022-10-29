@@ -71,6 +71,7 @@
 #include "ToolButton.h"
 #include "ToolPlugin.h"
 #include "VersionedSaveDialog.h"
+#include "NodeEditor.h"
 
 #include "lmmsversion.h"
 
@@ -1082,7 +1083,10 @@ void MainWindow::toggleMicrotunerWin()
 	toggleWindow( getGUI()->getMicrotunerConfig() );
 }
 
-
+void MainWindow::toggleNodeEditorWin()
+{
+	toggleWindow(getGUI()->nodeEditor());
+}
 
 
 void MainWindow::updateViewMenu()
@@ -1091,6 +1095,9 @@ void MainWindow::updateViewMenu()
 	// TODO: get current visibility for these and indicate in menu?
 	// Not that it's straight visible <-> invisible, more like
 	// not on top -> top <-> invisible
+	m_viewMenu->addAction(tr("Node Editor" ), this,
+		SLOT(toggleNodeEditorWin()));
+
 	m_viewMenu->addAction(embed::getIconPixmap( "songeditor" ),
 			      tr( "Song Editor" ) + "\tCtrl+1",
 			      this, SLOT(toggleSongEditorWin())

@@ -49,3 +49,6 @@
 [submodule "plugins/LadspaEffect/cmt/cmt"]
 	path = plugins/LadspaEffect/cmt/cmt
 	url = https://github.com/lmms/cmt
+[submodule "src/3rdparty/nodeeditor"]
+	path = src/3rdparty/nodeeditor
+	url = https://github.com/paceholder/nodeeditor.git
