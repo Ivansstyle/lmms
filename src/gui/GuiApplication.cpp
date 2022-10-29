@@ -175,6 +175,10 @@ GuiApplication::GuiApplication()
 	m_automationEditor = new AutomationEditorWindow;
 	connect(m_automationEditor, SIGNAL(destroyed(QObject*)), this, SLOT(childDestroyed(QObject*)));
 
+	displayInitProgress(tr("Preparing Node editor"));
+	m_nodeEditor = nullptr;
+
+
 	splashScreen.finish(m_mainWindow);
 	m_mainWindow->finalize();
 

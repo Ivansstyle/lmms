@@ -3,7 +3,7 @@ ADD_SUBDIRECTORY(3rdparty)
 CONFIGURE_FILE("lmmsconfig.h.in"        "${CMAKE_BINARY_DIR}/lmmsconfig.h")
 CONFIGURE_FILE("lmmsversion.h.in"       "${CMAKE_BINARY_DIR}/lmmsversion.h")
 
-SET(LMMS_SRCS "")
+SET(LMMS_SRCS "" gui/editors/NodeEditor.cpp)
 SET(LMMS_UIS "")
 
 SET(CMAKE_AUTOMOC ON)
@@ -36,7 +36,7 @@ INCLUDE_DIRECTORIES(
 IF(WIN32 AND MSVC)
 	SET(WINRC "${CMAKE_BINARY_DIR}/lmms.rc")
 ELSEIF(WIN32)
-	SET(WINRC "${CMAKE_BINARY_DIR}/lmmsrc.obj")
+	SET(WINRC "${CMAKE_BINARY_DIR}/lmmsrc.obj" ../include/NodeEditor.h)
 	ADD_CUSTOM_COMMAND(OUTPUT "${WINRC}"
 				COMMAND "${CMAKE_RC_COMPILER}"
 					"-I\"${CMAKE_SOURCE_DIR}\""

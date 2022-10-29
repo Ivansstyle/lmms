@@ -44,6 +44,7 @@ class PatternEditorWindow;
 class PianoRollWindow;
 class ProjectNotes;
 class SongEditorWindow;
+class NodeEditorWindow;
 
 class LMMS_EXPORT GuiApplication : public QObject
 {
@@ -66,6 +67,8 @@ public:
 	MicrotunerConfig* getMicrotunerConfig() { return m_microtunerConfig; }
 	AutomationEditorWindow* automationEditor() { return m_automationEditor; }
 	ControllerRackView* getControllerRackView() { return m_controllerRackView; }
+	// Adding nodeEditor window
+	NodeEditorWindow* nodeEditor() { return m_nodeEditor;}
 
 public slots:
 	void displayInitProgress(const QString &msg);
@@ -85,6 +88,9 @@ private:
 	ProjectNotes* m_projectNotes;
 	MicrotunerConfig* m_microtunerConfig;
 	ControllerRackView* m_controllerRackView;
+
+	// Adding note editor view
+	NodeEditorWindow* m_nodeEditor;
 	QLabel* m_loadingProgressLabel;
 };
 
