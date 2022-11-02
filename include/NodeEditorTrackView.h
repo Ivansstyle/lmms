@@ -9,9 +9,10 @@
 
 
 
+
 namespace lmms{
 class NodeEditorTrack;
-
+class NodeEditor;
 
 namespace gui {
 
@@ -23,6 +24,10 @@ public:
 
 	void dragEnterEvent(QDragEnterEvent* _dee) override;
 	void dropEvent(QDropEvent* _de) override;
+
+private:
+	NodeEditor * m_nodeEditor;
+	void showNodeEditor();
 };
 
 }

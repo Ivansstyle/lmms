@@ -207,6 +207,7 @@ private:
 	QAction* m_addPatternTrackAction;
 	QAction* m_addSampleTrackAction;
 	QAction* m_addAutomationTrackAction;
+	QAction* m_addNodeEditorTrackAction;
 	QAction* m_setProportionalSnapAction;
 
 	ActionGroup * m_editModeGroup;

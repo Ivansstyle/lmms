@@ -1,4 +1,5 @@
 /*
+/*
  * Song.h - class song - the root of the model-tree
  *
  * Copyright (c) 2004-2014 Tobias Doerffel <tobydox/at/users.sourceforge.net>
@@ -393,6 +394,8 @@ private slots:
 	void removeBar();
 	void addSampleTrack();
 	void addAutomationTrack();
+	// Node editor track
+	void addNodeEditorTrack();
 
 	void setTempo();
 	void setTimeSignature();

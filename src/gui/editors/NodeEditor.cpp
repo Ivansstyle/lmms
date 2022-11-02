@@ -30,10 +30,14 @@
 namespace lmms::gui {
 
 NodeEditor::NodeEditor() :
-	QMainWindow( getGUI()->mainWindow()->workspace())
+	QMainWindow( getGUI()->mainWindow()->workspace()),
+	m_flowScene(this),
+	m_FlowView(&m_flowScene)
 {
 	this->setMinimumHeight(300);
 	this->setMinimumWidth(700);
+	this->setCentralWidget(&m_FlowView);
+
 }
 
 void NodeEditor::nodeAdded()

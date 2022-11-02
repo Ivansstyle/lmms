@@ -47,6 +47,7 @@
 #include <QLabel>
 #include <QMessageBox>
 #include <QSplashScreen>
+#include <QErrorMessage>
 
 #ifdef LMMS_BUILD_WIN32
 #include <windows.h>
@@ -192,6 +193,18 @@ GuiApplication::~GuiApplication()
 	s_instance = nullptr;
 }
 
+NodeEditor* GuiApplication::getNodeEditorWindow()
+{
+	if (m_nodeEditor != nullptr){
+		return m_nodeEditor;
+	}
+	else{
+
+		QMessageBox msg;
+		msg.critical(0, "HELP", "NO NODE EDITOR WINDOW EXISTS!!!! HELP PLEASE");
+		return nullptr;
+	}
+}
 
 void GuiApplication::displayInitProgress(const QString &msg)
 {

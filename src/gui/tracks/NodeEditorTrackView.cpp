@@ -11,6 +11,8 @@
 #include "StringPairDrag.h"
 #include "TrackContainerView.h"
 #include "TrackLabelButton.h"
+#include "GuiApplication.h"
+#include "MainWindow.h"
 
 namespace lmms::gui
 {
@@ -23,6 +25,8 @@ NodeEditorTrackView::NodeEditorTrackView( NodeEditorTrack * _at, TrackContainerV
 	tlb->setIcon(embed::getIconPixmap("NodeEditor_track"));
 	tlb->move(3, 1);
 	tlb->show();
+	connect(tlb, SIGNAL(clicked(bool)),
+		this, SLOT(ShowNodeEditor()));
 	setModel(_at);
 }
 
@@ -31,7 +35,11 @@ void NodeEditorTrackView::dragEnterEvent( QDragEnterEvent * _dee )
 	StringPairDrag::processDragEnterEvent( _dee, "automatable_model" );
 }
 
-
+void NodeEditorTrackView::showNodeEditor()
+{
+	GuiApplication* app = GuiApplication::instance();
+	app->mainWindow()->toggleNodeEditorWin();
+}
 
 
 void NodeEditorTrackView::dropEvent( QDropEvent * _de )

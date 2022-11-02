@@ -828,7 +828,10 @@ void Song::addAutomationTrack()
 	( void )Track::create( Track::AutomationTrack, this );
 }
 
-
+void Song::addNodeEditorTrack()
+{
+	(void )Track::create( Track::NodeEditorTrack, this );
+}
 
 
 bpm_t Song::getTempo()

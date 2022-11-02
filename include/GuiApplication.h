@@ -92,6 +92,8 @@ private:
 	// Adding note editor view
 	NodeEditor* m_nodeEditor;
 	QLabel* m_loadingProgressLabel;
+public:
+	NodeEditor* getNodeEditorWindow();
 };
 
 // Shorthand function

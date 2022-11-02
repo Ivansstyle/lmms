@@ -35,6 +35,8 @@
 #include "SerializingObject.h"
 // Finally loading
 #include <nodes/Node>
+#include <nodes/FlowView>
+#include <nodes/FlowScene>
 #include <vector>
 
 class myNode : public QtNodes::NodeData
@@ -61,7 +63,10 @@ protected:
 private slots:
 	void nodeAdded();
 
+
 private:
+	QtNodes::FlowScene m_flowScene;
+	QtNodes::FlowView m_FlowView;
 	std::vector<int> m_Nodes;
 
 protected:
