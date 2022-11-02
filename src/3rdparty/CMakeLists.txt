@@ -5,6 +5,12 @@ ENDIF()
 
 ADD_SUBDIRECTORY(rpmalloc)
 ADD_SUBDIRECTORY(weakjack)
+ADD_SUBDIRECTORY(nodeeditor)
+
+# Node edtor library compiled as a separate library requires linking
+SET(NODEEDITOR_DIR "${CMAKE_SOURCE_DIR}/src/3rdparty/nodeeditor/")
+SET(NODEEDITOR_DIR ${NODEEDITOR_DIR} PARENT_SCOPE)
+# TARGET_LINK_LIBRARIES(LMMS ${NODEEDITOR_DIR}/BUILD/lib/Release/nodes.lib)
 
 # The lockless ring buffer library is compiled as part of the core
 SET(RINGBUFFER_DIR "${CMAKE_SOURCE_DIR}/src/3rdparty/ringbuffer/")

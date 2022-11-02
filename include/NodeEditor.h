@@ -33,6 +33,8 @@
 #include "lmms_basics.h"
 #include "JournallingObject.h"
 #include "SerializingObject.h"
+// Finally loading
+#include <nodes/Node>
 #include <vector>
 class Node
 {

@@ -32,7 +32,8 @@ namespace lmms::gui {
 NodeEditor::NodeEditor() :
 	QMainWindow( getGUI()->mainWindow()->workspace())
 {
-	;
+	this->setMinimumHeight(300);
+	this->setMinimumWidth(700);
 }
 
 void NodeEditor::nodeAdded()

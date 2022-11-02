@@ -1,3 +1,4 @@
+# Adding 3rdparty dir
 ADD_SUBDIRECTORY(3rdparty)
 
 CONFIGURE_FILE("lmmsconfig.h.in"        "${CMAKE_BINARY_DIR}/lmmsconfig.h")
@@ -31,6 +32,7 @@ INCLUDE_DIRECTORIES(
 	"${CMAKE_SOURCE_DIR}"
 	"${CMAKE_SOURCE_DIR}/include"
 	"${RINGBUFFER_DIR}/include"
+	"${NODEEDITOR_DIR}/include"
 )
 
 IF(WIN32 AND MSVC)
@@ -122,7 +124,7 @@ ADD_EXECUTABLE(lmms
 TARGET_INCLUDE_DIRECTORIES(lmms
 	PUBLIC ${CMAKE_CURRENT_BINARY_DIR}
 )
-
+TARGET_LINK_LIBRARIES(lmms lib/nodes)
 # CMake doesn't define target_EXPORTS for OBJECT libraries.
 # See the documentation of DEFINE_SYMBOL for details.
 # Also add LMMS_STATIC_DEFINE for targets linking against it.
@@ -237,5 +239,6 @@ ELSE()
 			DESTINATION "${INSTALL_MANDIR}/man1/"
 			PERMISSIONS OWNER_READ GROUP_READ WORLD_READ)
 ENDIF()
+
 
 INSTALL(TARGETS lmms RUNTIME DESTINATION "${BIN_DIR}")
