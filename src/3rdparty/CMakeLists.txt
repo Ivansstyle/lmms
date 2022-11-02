@@ -5,7 +5,7 @@ ENDIF()
 
 ADD_SUBDIRECTORY(rpmalloc)
 ADD_SUBDIRECTORY(weakjack)
-ADD_SUBDIRECTORY(nodeeditor)
+#ADD_SUBDIRECTORY(nodeeditor)
 # Fix for node editor definiton issue on windows ( Wants to link statically!)
 #ADD_DEFINITIONS(-DNODE_EDITOR_SHARED)
 #ADD_DEFINITIONS(-UNODE_EDITOR_STATIC)

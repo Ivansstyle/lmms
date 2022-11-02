@@ -37,6 +37,10 @@
 #include <nodes/Node>
 #include <vector>
 
+class myNode : public QtNodes::NodeData
+{
+
+};
 
 namespace lmms {
 namespace gui {
