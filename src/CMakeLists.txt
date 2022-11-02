@@ -4,7 +4,7 @@ ADD_SUBDIRECTORY(3rdparty)
 CONFIGURE_FILE("lmmsconfig.h.in"        "${CMAKE_BINARY_DIR}/lmmsconfig.h")
 CONFIGURE_FILE("lmmsversion.h.in"       "${CMAKE_BINARY_DIR}/lmmsversion.h")
 
-SET(LMMS_SRCS "" gui/editors/NodeEditor.cpp)
+SET(LMMS_SRCS "" gui/editors/NodeEditor.cpp tracks/NodeEditorTrack.cpp ../include/NodeEditorTrack.h gui/tracks/NodeEditorTrackView.cpp ../include/NodeEditorTrackView.h)
 SET(LMMS_UIS "")
 
 SET(CMAKE_AUTOMOC ON)

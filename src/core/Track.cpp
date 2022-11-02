@@ -34,6 +34,7 @@
 
 #include "AutomationClip.h"
 #include "AutomationTrack.h"
+#include "NodeEditorTrack.h"
 #include "ConfigManager.h"
 #include "Engine.h"
 #include "InstrumentTrack.h"
@@ -117,6 +118,7 @@ Track * Track::create( TrackTypes tt, TrackContainer * tc )
 		case AutomationTrack: t = new class AutomationTrack( tc ); break;
 		case HiddenAutomationTrack:
 						t = new class AutomationTrack( tc, true ); break;
+		case NodeEditorTrack: t = new class NodeEditorTrack(tc);
 		default: break;
 	}
 

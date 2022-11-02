@@ -81,6 +81,7 @@ public:
 		VideoTrack,
 		AutomationTrack,
 		HiddenAutomationTrack,
+		NodeEditorTrack,
 		NumTrackTypes
 	} ;
 

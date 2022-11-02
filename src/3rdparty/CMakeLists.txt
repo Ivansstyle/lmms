@@ -6,6 +6,9 @@ ENDIF()
 ADD_SUBDIRECTORY(rpmalloc)
 ADD_SUBDIRECTORY(weakjack)
 ADD_SUBDIRECTORY(nodeeditor)
+# Fix for node editor definiton issue on windows ( Wants to link statically!)
+#ADD_DEFINITIONS(-DNODE_EDITOR_SHARED)
+#ADD_DEFINITIONS(-UNODE_EDITOR_STATIC)
 
 # Node edtor library compiled as a separate library requires linking
 SET(NODEEDITOR_DIR "${CMAKE_SOURCE_DIR}/src/3rdparty/nodeeditor/")

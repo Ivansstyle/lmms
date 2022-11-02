@@ -36,11 +36,7 @@
 // Finally loading
 #include <nodes/Node>
 #include <vector>
-class Node
-{
-public:
-	int a{0};
-};
+
 
 namespace lmms {
 namespace gui {
@@ -62,7 +58,7 @@ private slots:
 	void nodeAdded();
 
 private:
-	std::vector<Node> m_Nodes;
+	std::vector<int> m_Nodes;
 
 protected:
 	void saveSettings(QDomDocument& doc, QDomElement& element) override;
