@@ -27,12 +27,16 @@
 #include "GuiApplication.h"
 #include "MainWindow.h"
 #include <nodes/DataModelRegistry>
+
+
 static std::shared_ptr<QtNodes::DataModelRegistry> registerDataModels()
 {
+	// Register node models here
 	auto ret = std::make_shared<QtNodes::DataModelRegistry>();
 	ret->registerModel<SoundSourceNodeModel>();
 	ret->registerModel<SoundExportNodeModel>();
 	ret->registerModel<SoundMixNodeModel>();
+	ret->registerModel<EffectNodeModel>();
 	return ret;
 }
 

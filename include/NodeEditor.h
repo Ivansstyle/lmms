@@ -174,6 +174,73 @@ public:
 	QWidget * embeddedWidget() override {return nullptr; /* add embedded widget to control stuff here*/};
 };
 
+class EffectNodeModel : public QtNodes::NodeDataModel
+{
+	Q_OBJECT
+public:
+	virtual ~EffectNodeModel(){}
+
+private:
+	SoundNodeData m_in_soundData;
+	SoundNodeData m_out_soundData;
+
+public:
+	QString caption() const override {return QString("Effect Node Model");}
+	QString name() const override {return QString("Effect Node Model");}
+	uint nPorts(QtNodes::PortType portType) const override{
+		uint result = -1;
+		switch (portType)
+		{
+		case QtNodes::PortType::In:
+			result = 1;
+			break;
+		case QtNodes::PortType::None:
+			break;
+		case QtNodes::PortType::Out:
+			result = 1;
+			break;
+		}
+		return result;
+	}
+	QtNodes::NodeDataType dataType(QtNodes::PortType portType, QtNodes::PortIndex portIndex) const override {
+		switch (portType)
+		{
+		case QtNodes::PortType::In:
+			switch (portIndex)
+			{
+			case 0:
+				return SoundNodeData().type();
+			}
+			break;
+		case QtNodes::PortType::Out:
+			switch (portIndex)
+			{
+			case 0:
+				return SoundNodeData().type();
+			}
+		}
+	}
+	void setInData(std::shared_ptr<QtNodes::NodeData> nodeData, QtNodes::PortIndex port) override
+	{
+		switch (port)
+		{
+		case 0:
+			//m_in0_soundData = SoundNodeData(nodeData);
+			printf("Out 1");
+			break;
+		}
+	}
+	std::shared_ptr<QtNodes::NodeData> outData(QtNodes::PortIndex port) override
+	{
+		switch (port)
+		{
+		case 0:
+			return std::make_shared<SoundNodeData>(m_out_soundData);
+		}
+	}
+	QWidget * embeddedWidget() override {return nullptr; /* add embedded widget to control stuff here*/};
+};
+
 class SoundMixNodeModel : public QtNodes::NodeDataModel
 {
 	Q_OBJECT
