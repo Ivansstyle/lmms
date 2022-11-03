@@ -26,12 +26,21 @@
 #include "Track.h"
 #include "GuiApplication.h"
 #include "MainWindow.h"
+#include <nodes/DataModelRegistry>
+static std::shared_ptr<QtNodes::DataModelRegistry> registerDataModels()
+{
+	auto ret = std::make_shared<QtNodes::DataModelRegistry>();
+	ret->registerModel<SoundSourceNodeModel>();
+	ret->registerModel<SoundExportNodeModel>();
+	ret->registerModel<SoundMixNodeModel>();
+	return ret;
+}
 
 namespace lmms::gui {
 
 NodeEditor::NodeEditor() :
 	QMainWindow( getGUI()->mainWindow()->workspace()),
-	m_flowScene(this),
+	m_flowScene(registerDataModels()),
 	m_FlowView(&m_flowScene)
 {
 	this->setMinimumHeight(300);
