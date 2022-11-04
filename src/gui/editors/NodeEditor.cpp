@@ -27,7 +27,22 @@
 #include "GuiApplication.h"
 #include "MainWindow.h"
 #include <nodes/DataModelRegistry>
+#include "EffectRackView.h"
 
+EffectNodeModel::EffectNodeModel() : QtNodes::NodeDataModel()
+{
+	auto ml = new QHBoxLayout;
+	ml->setContentsMargins( 0, 4, 0, 0 );
+
+	// create rack layout before creating the first channel
+	m_effectChain = new lmms::EffectChain(nullptr); // Why nullptr for model? Used like this everywhere...
+	m_racksWidget = new QWidget;
+	m_rackView = new lmms::gui::EffectRackView(m_effectChain, m_racksWidget);
+	m_racksLayout = new QStackedLayout( m_racksWidget );
+	m_racksLayout->setContentsMargins( 0, 0, 0, 0 );
+	m_racksWidget->setLayout( m_racksLayout );
+	m_racksLayout->addWidget(m_rackView);
+}
 
 static std::shared_ptr<QtNodes::DataModelRegistry> registerDataModels()
 {

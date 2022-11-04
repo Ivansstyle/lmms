@@ -38,10 +38,12 @@
 #include <nodes/FlowView>
 #include <nodes/FlowScene>
 #include <vector>
+#include "EffectRackView.h"
 
 // Node data models
+#include <QStackedLayout>
 #include <nodes/NodeDataModel>
-
+#include "EffectChain.h"
 
 class SoundNodeData : public QtNodes::NodeData
 {
@@ -178,11 +180,16 @@ class EffectNodeModel : public QtNodes::NodeDataModel
 {
 	Q_OBJECT
 public:
+	EffectNodeModel();
 	virtual ~EffectNodeModel(){}
 
 private:
 	SoundNodeData m_in_soundData;
 	SoundNodeData m_out_soundData;
+	lmms::EffectChain * m_effectChain;
+	lmms::gui::EffectRackView * m_rackView{};
+	QWidget *  m_racksWidget;
+	QStackedLayout *  m_racksLayout;
 
 public:
 	QString caption() const override {return QString("Effect Node Model");}
@@ -238,7 +245,7 @@ public:
 			return std::make_shared<SoundNodeData>(m_out_soundData);
 		}
 	}
-	QWidget * embeddedWidget() override {return nullptr; /* add embedded widget to control stuff here*/};
+	QWidget * embeddedWidget() override {return m_racksWidget; /* add embedded widget to control stuff here*/};
 };
 
 class SoundMixNodeModel : public QtNodes::NodeDataModel
