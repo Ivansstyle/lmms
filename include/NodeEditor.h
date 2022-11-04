@@ -42,14 +42,21 @@
 
 // Node data models
 #include <QStackedLayout>
+#include <QComboBox>
 #include <nodes/NodeDataModel>
 #include "EffectChain.h"
+#include "Knob.h"
+#include "MixerLineLcdSpinBox.h"
+#include "Track.h"
 
 class SoundNodeData : public QtNodes::NodeData
 {
 public:
 	QtNodes::NodeDataType type() const override {
 		return QtNodes::NodeDataType{"SoundNodeData", "Sound Node Data"};
+	}
+	QtNodes::NodeDataType type(QString _input_name) {
+		return QtNodes::NodeDataType{"SoundNodeData", _input_name };
 	}
 };
 
@@ -65,12 +72,15 @@ class SoundSourceNodeModel : public QtNodes::NodeDataModel
 {
 	Q_OBJECT
 public:
+	SoundSourceNodeModel();
 	virtual ~SoundSourceNodeModel(){}
 private:
 	SoundNodeData m_out_soundData;
+	QComboBox * m_inputSelector;
+	QWidget * m_inputWidget;
 public:
-	QString caption() const override {return {"Sound Source Data Model"};}
-	QString name() const override {return {"SoundSourceDataModel"};}
+	QString caption() const override {return {"Sound Source"};}
+	QString name() const override {return {"Sound Source Node"};}
 	unsigned int nPorts(QtNodes::PortType portType) const override {
 		uint result = -1;
 		switch (portType)
@@ -93,7 +103,7 @@ public:
 			switch (portIndex)
 			{
 			case 0:
-				return SoundNodeData().type();
+				return SoundNodeData().type("Sound OUT");
 			}
 		}
 		return {};
@@ -106,7 +116,7 @@ public:
 			return std::make_shared<SoundNodeData>(m_out_soundData);
 		}
 	}
-	QWidget * embeddedWidget() override {return nullptr; /* add embedded widget to control stuff here*/};
+	QWidget * embeddedWidget() override {return m_inputWidget; /* add embedded widget to control stuff here*/};
 
 	void setInData(std::shared_ptr<QtNodes::NodeData>, int) override {
 		// Nothing to set in
@@ -116,13 +126,18 @@ class SoundExportNodeModel : public QtNodes::NodeDataModel
 {
 	Q_OBJECT
 public:
+	SoundExportNodeModel();
 	virtual ~SoundExportNodeModel(){}
 private:
 	 SoundNodeData m_in_soundData;
+	 QWidget * m_exportWidget;
+	 lmms::gui::Knob * m_panKnob;
+	 lmms::gui::Knob * m_volumeKnob;
+	 lmms::gui::MixerLineLcdSpinBox * m_mixerSpinbox;
 
 public:
-	QString caption() const override {return QString("Sound Export Data Model");}
-	QString name() const override {return QString("SoundExportDataModel");}
+	QString caption() const override {return QString("Export To Mix");}
+	QString name() const override {return QString("Sound Export To Mix");}
 
 	uint nPorts(QtNodes::PortType portType) const override
 	{
@@ -135,7 +150,7 @@ public:
 		case QtNodes::PortType::None:
 			break;
 		case QtNodes::PortType::Out:
-			result = 0;
+			result = 0; // Redundant
 			break;
 		}
 		return result;
@@ -147,14 +162,14 @@ public:
 			switch (portIndex)
 			{
 			case 0:
-				return SoundNodeData().type();
+				return SoundNodeData().type("Sound IN");
 			}
 			break;
 		case QtNodes::PortType::Out:
 			switch (portIndex)
 			{
 			case 0:
-				return SoundNodeData().type();
+				return SoundNodeData().type(); // Redundant
 			}
 		}
 		return {};
@@ -173,7 +188,7 @@ public:
 		// Any out data goes here
 		return nullptr;
 	}
-	QWidget * embeddedWidget() override {return nullptr; /* add embedded widget to control stuff here*/};
+	QWidget * embeddedWidget() override {return m_exportWidget; /* add embedded widget to control stuff here*/};
 };
 
 class EffectNodeModel : public QtNodes::NodeDataModel
@@ -192,8 +207,8 @@ private:
 	QStackedLayout *  m_racksLayout;
 
 public:
-	QString caption() const override {return QString("Effect Node Model");}
-	QString name() const override {return QString("Effect Node Model");}
+	QString caption() const override {return QString("Effect Rack");}
+	QString name() const override {return QString("Effect Rack Node");}
 	uint nPorts(QtNodes::PortType portType) const override{
 		uint result = -1;
 		switch (portType)
@@ -216,14 +231,14 @@ public:
 			switch (portIndex)
 			{
 			case 0:
-				return SoundNodeData().type();
+				return SoundNodeData().type("Sound IN");
 			}
 			break;
 		case QtNodes::PortType::Out:
 			switch (portIndex)
 			{
 			case 0:
-				return SoundNodeData().type();
+				return SoundNodeData().type("Sound OUT");
 			}
 		}
 	}
@@ -252,6 +267,7 @@ class SoundMixNodeModel : public QtNodes::NodeDataModel
 {
 	Q_OBJECT
 public:
+	SoundMixNodeModel();
 	virtual ~SoundMixNodeModel(){}
 
 private:
@@ -259,9 +275,13 @@ private:
 	SoundNodeData m_in1_soundData;
 	SoundNodeData m_out_soundData;
 
+	lmms::gui::Knob * m_volumeAKnob;
+	lmms::gui::Knob * m_volumeBKnob;
+	QWidget * m_mixWidget;
+
 public:
-	QString caption() const override {return QString("Sound Mix Data Model");}
-	QString name() const override {return QString("SoundMixDataModel");}
+	QString caption() const override {return QString("Mix");}
+	QString name() const override {return QString("Sound Mix Node");}
 	uint nPorts(QtNodes::PortType portType) const override{
 		uint result = -1;
 		switch (portType)
@@ -284,16 +304,16 @@ public:
 			switch (portIndex)
 			{
 			case 0:
-				return SoundNodeData().type();
+				return SoundNodeData().type("Input A");
 			case 1:
-				return  SoundNodeData().type();
+				return  SoundNodeData().type("Input B");
 			}
 			break;
 		case QtNodes::PortType::Out:
 			switch (portIndex)
 			{
 			case 0:
-				return SoundNodeData().type();
+				return SoundNodeData().type("A+B");
 			}
 		}
 	}
@@ -319,7 +339,7 @@ public:
 			return std::make_shared<SoundNodeData>(m_out_soundData);
 		}
 	}
-	QWidget * embeddedWidget() override {return nullptr; /* add embedded widget to control stuff here*/};
+	QWidget * embeddedWidget() override {return m_mixWidget; /* add embedded widget to control stuff here*/};
 };
 
 
